@@ -2,7 +2,8 @@
 
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5050/api/v1";
+const BASE_URL = "https://de-vapp.onrender.com/api/v1";
+// const BASE_URL = "https//localhost:5050/api/v1";
 
 // Type for the form input (you can import this from a `dto` file if desired)
 export interface CreateRoomPayload {
@@ -15,13 +16,18 @@ export interface CreateRoomPayload {
 // Create a decision room
 export const createRoom = async (roomData: CreateRoomPayload) => {
   const token = localStorage.getItem("token");
+  console.log("Creating room with data: ", roomData);
 
   console.log("Token: ", token);
-  const response = await axios.post(`${BASE_URL}/create`, roomData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await axios.post(
+    `https://de-vapp.onrender.com/api/v1/create`,
+    roomData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   console.log("Response from room service; ", response);
 
   return response.data;
@@ -37,7 +43,7 @@ export const castVote = async ({
   const token = localStorage.getItem("token");
   const guestId =
     localStorage.getItem("guestId") || `guest:${crypto.randomUUID()}`;
-  localStorage.setItem("guestId", guestId); // persist guest
+  localStorage.setItem("guestId", guestId);
 
   const headers: any = {
     "Content-Type": "application/json",

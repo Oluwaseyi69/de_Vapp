@@ -23,10 +23,12 @@ export default function VotingRoom() {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const res = await axios.get(`http://localhost:5050/api/v1/${roomCode}`);
+        const res = await axios.get(
+          `https://de-vapp.onrender.com/api/v1/${roomCode}`
+        );
         setRoom(res.data.room);
-      } catch (err) {
-        toast.error("❌ Failed to load voting room.");
+      } catch (err: any) {
+        toast.error(err.message || "Error fetching room data");
       }
     };
 

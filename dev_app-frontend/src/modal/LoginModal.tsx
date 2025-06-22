@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import { login } from "../services/AuthService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -19,6 +20,7 @@ interface LoginForm {
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const [form, setForm] = useState<LoginForm>({ email: "", password: "" });
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -49,9 +51,11 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         >
           <X />
         </button>
+
         <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Email Input */}
           <input
             name="email"
             type="email"
@@ -61,18 +65,31 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             className="w-full text-black p-2 border border-gray-300 rounded"
             required
           />
-          <input
-            name="password"
-            type="password"
-            value={form.password}
-            onChange={handleChange}
-            placeholder="Password"
-            className="w-full p-2 border text-black border-gray-300 rounded"
-            required
-          />
+
+          {/* Password Input + Show/Hide Icon */}
+          <div className="relative">
+            <input
+              name="password"
+              type={showPassword ? "text" : "password"}
+              value={form.password}
+              onChange={handleChange}
+              placeholder="Password"
+              className="w-full px-4 py-2 bg-gray-800 text-white border border-gray-700 rounded pr-10"
+              required
+            />
+            <button
+              type="button"
+              className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400 hover:text-white"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
+
+          {/* Login Button */}
           <button
             type="submit"
-            className="w-full bg-cyan-500 text-white py-2 rounded hover:bg-cyan-200 transition"
+            className="w-full bg-cyan-500 text-white py-2 rounded hover:bg-cyan-400 transition"
           >
             Login
           </button>
