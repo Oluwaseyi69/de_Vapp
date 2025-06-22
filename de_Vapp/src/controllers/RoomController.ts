@@ -1,32 +1,3 @@
-// import { Request, Response } from "express";
-// import { RoomService } from "../services/RoomService";
-
-// export const createRoomController = async (req: Request, res: Response) => {
-//   try {
-//     const { title, description, options, deadline } = req.body;
-//     const createdBy = req.user?.id;
-
-//     if (!createdBy) {
-//       return res.status(401).json({ message: "Unauthorized" });
-//     }
-
-//     const room = await RoomService.createRoom({
-//       title,
-//       description,
-//       options,
-//       deadline,
-//       createdBy,
-//     });
-
-//     return res.status(201).json({
-//       message: "Decision room created successfully",
-//       room,
-//       shareURL: `http://localhost:5050/vote/${room.roomCode}`,
-//     });
-//   } catch (err: any) {
-//     res.status(400).json({ message: err.message });
-//   }
-// };
 import { Request, Response, NextFunction } from "express";
 import { RoomService } from "../services/RoomService";
 import DecisionRoom from "../models/DecisionRoom";
@@ -109,12 +80,10 @@ export const getLiveTalliesController = async (
     }
 
     if (room.createdBy.toString() !== userId) {
-      res
-        .status(403)
-        .json({
-          message:
-            "Only the room creator can view live tallies, While voting is going on.",
-        });
+      res.status(403).json({
+        message:
+          "Only the room creator can view live tallies, While voting is going on.",
+      });
       return;
     }
 
