@@ -8,6 +8,7 @@ export const createRoomController = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    console.log("Creating room with request body:", req.body);
     const { title, description, options, deadline } = req.body;
     const createdBy = req.user?.id;
 
@@ -15,6 +16,15 @@ export const createRoomController = async (
       res.status(401).json({ message: "Unauthorized" });
       return;
     }
+
+    console.log("Creating room with data:", {
+      title,
+      description,
+      options,
+      deadline,
+      createdBy,
+      createdById: req.user.id,
+    });
 
     const room = await RoomService.createRoom({
       title,

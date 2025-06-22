@@ -53,7 +53,12 @@ class AuthController {
   ): Promise<void> {
     try {
       const { name, email, password, role } = req.body;
-
+      console.log("Registering user with data:", {
+        name,
+        email,
+        password,
+        role,
+      });
       if (!name || typeof name !== "string") {
         res
           .status(400)

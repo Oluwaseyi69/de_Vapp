@@ -12,11 +12,10 @@ import { identifyVoter } from "../middleware/IdentifyVoter";
 
 const router = express.Router();
 
-// Only users with "roomcreator" role can create a decision room
 router.post(
   "/create",
   authenticate,
-  requireRole("roomcreator"),
+  requireRole("roomCreator"),
   createRoomController
 );
 
