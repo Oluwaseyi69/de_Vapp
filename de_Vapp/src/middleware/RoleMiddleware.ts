@@ -7,7 +7,7 @@ export const requireRole = (requiredRole: string) => {
       console.log(
         `Access denied. User role: ${req.user?.role}, Required role: ${requiredRole}`
       );
-      res.status(403).json({ error: `Access denied. ${requiredRole}s only.` });
+      res.status(403).json({ error: `Access denied ${requiredRole}s only.` });
       return;
     }
     next();

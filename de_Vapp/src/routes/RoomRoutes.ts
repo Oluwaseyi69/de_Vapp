@@ -6,7 +6,7 @@ import {
   getLiveTalliesController,
   getRoomByCodeController,
 } from "../controllers/RoomController";
-import { authenticate } from "../middleware/AuthMiddleware"; // Adds req.user
+import { authenticate } from "../middleware/AuthMiddleware";
 import { requireRole } from "../middleware/RoleMiddleware";
 import { identifyVoter } from "../middleware/IdentifyVoter";
 
